@@ -1,0 +1,16 @@
+<%= form.fields_for :associations do |f| %>
+  <div class="field">
+<%= f.label :role %>
+<%= f.collection_select(:company_role_id, CompanyRole.all, :id, :name) %>
+  </div>
+  <div class="field">
+<%= f.label :company_name %>
+<%= f.collection_select(:company_id, Company.all, :id, :name) %>
+  </div>
+  <% unless f.object.nil? || f.object.new_record? %>
+    <div class="field">
+      <%= f.label :_destroy, 'Remove:' %>
+      <%= f.check_box :_destroy %>
+    </div>
+  <% end %>
+<% end %>

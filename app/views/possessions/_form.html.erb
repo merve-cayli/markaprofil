@@ -1,0 +1,16 @@
+<%= form.fields_for :possessions do |f| %>
+  <div class="field">
+<%= f.label :number %>
+<%= f.text_field :number %>
+  </div>
+  <div class="field">
+<%= f.label :asset %>
+<%= f.collection_select(:asset_id, Asset.all, :id, :name) %>
+  </div>
+  <% unless f.object.nil? || f.object.new_record? %>
+    <div class="field">
+      <%= f.label :_destroy, 'Remove:' %>
+      <%= f.check_box :_destroy %>
+    </div>
+  <% end %>
+<% end %>

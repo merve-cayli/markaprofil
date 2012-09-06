@@ -1,0 +1,41 @@
+<% @brand.tags.build %>
+<% 3.times { @brand.possessions.build }  %>
+<% @brand.relationships.build %>
+<% @brand.associations.build %>
+<%= form_for(@brand) do |brand_form| %>
+  <% if @brand.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@brand.errors.count, "error") %> prohibited this brand from being saved:</h2>
+    <ul>
+    <% @brand.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+ 
+  <div class="field">
+    <%= brand_form.label :name %><br />
+    <%= brand_form.text_field :name %>
+  </div>
+  <div class="field">
+	<%= brand_form.label :tag_name %><br />
+    <%= brand_form.collection_select(:tag_ids, Tag.all, :id, :name, {:selected => @brand.tags.collect {|r| r.id}}, :multiple => true) %>
+  </div>
+  <div class="field">
+	<%= brand_form.label :industry_name %><br />
+	<%= brand_form.collection_select(:industry_ids, Industry.all, :id, :name, {:selected => @brand.industries.collect {|r| r.id}}, :multiple => true) %>
+  </div>
+  <div class="field">
+	<%= brand_form.label :product %><br />
+	<%= brand_form.collection_select(:product_ids, Product.all, :id, :name, {:selected => @brand.products.collect {|r| r.id}}, :multiple => true) %>
+  </div>
+  <div class="field">
+    <%= brand_form.label :country_name %><br />
+	<%= brand_form.collection_select(:country_id, Country.all, :id, :name) %>
+  </div>
+ <div class="actions">
+   <%= brand_form.submit %>
+ </div>
+
+<% end %>
